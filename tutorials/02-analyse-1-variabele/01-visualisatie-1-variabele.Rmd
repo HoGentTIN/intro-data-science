@@ -103,7 +103,7 @@ ggplot(data = starwars)
 ```
 ## Geschikte grafiektypes
 
-Kan je voor de opgegeven variabelen bepalen welk grafiektype het meest geschikt is?
+Kan je voor de opgegeven variabelen bepalen welk grafiektype het meest geschikt is? Let op: als je keuzerondjes ziet (radio buttons), dan is er één goed antwoord, als het vierkantjes zijn (checkboxes), dan zijn er meerdere correct.
 
 ```{r geschikte-grafiektypes}
 quiz(
