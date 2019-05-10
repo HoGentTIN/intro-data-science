@@ -1,0 +1,86 @@
+---
+title: "Centrum- en spreidingsmaten"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Leerdoelen
+
+Na deze tutorial:
+
+- kan je voor elk meetniveau geschikte centrum- en spreidingsmaten benoemen
+- ken je de formules voor gemiddelde, variantie en standaardafwijking
+- weet je hoe je de mediaan, kwartielen en percentielen berekent
+- kan je in R voor een bepaalde variabele de geschikte centrum- en spreidingsmaten berekenen
+
+## Kwalitatieve variabelen
+
+## Quantitatieve variabelen
+
+## Gemiddelde en standaardafwijking
+
+## Mediaan en interkwartielafstand
+
+## Datasaurus dozen
+
+Wanneer je in een dataset op verkenning gaat, is het berekenen van de centrum- en spreidingsmaten van de belangrijkste variabelen één van de eerste dingen die je gaat doen. Het is dan wel belangrijk om te beseffen dat deze slechts een heel beperkt idee geven over de data. Het gemiddelde en de standaardafwijking, bijvoorbeeld, geven een heel vertekend beeld als de data extreme uitschieters bevat. Daarom is het altijd belangrijk om de data ook te visualiseren. De "[Datasaurus Dozen](https://www.autodeskresearch.com/publications/samestats)" is een dataset die specifiek ontworpen is om dit te illustreren. De dataset is beschikbaar in R in de bibliotheek `datasauRus`, en bestaat uit verschillende "deelverzamelingen", aangegeven in de variabele `dataset`:
+
+```{r, echo=TRUE}
+library(datasauRus)
+unique(datasaurus_dozen$dataset)
+```
+
+Om het gemiddelde en standaardafwijking van een deelverzameling te berekenen ga je als volgt te werk:
+
+```{r, echo=TRUE}
+circle <- datasaurus_dozen %>% 
+  filter(dataset == "circle") %>%
+  select(c("x", "y"))
+
+sprintf("x: mean = %.1f sd = %.1f", 
+       mean(circle$x), 
+       sd(circle$x))
+sprintf("y: mean = %.1f sd = %.1f", 
+       mean(circle$y), 
+       sd(circle$y))
+```
+
+Doe nu hetzelfde voor de andere deelverzamelingen. Wat valt je op als je de centrum- en spreidingsmaten vergelijkt?
+
+```{r datasaurus-summary, exercise=TRUE}
+datasaurus_subset <- datasaurus_dozen %>% 
+  filter(dataset == "dino") %>%
+  select(c("x", "y"))
+
+sprintf("x: mean = %.1f sd = %.1f", 
+       mean(datasaurus_subset$x), 
+       sd(datasaurus_subset$x))
+sprintf("y: mean = %.1f sd = %.1f", 
+       mean(datasaurus_subset$y), 
+       sd(datasaurus_subset$y))
+```
+
+Als je de resultaten vergelijkt, zou je verwachten dat de data van alle deelverzamelingen gelijkaardig is. Niets is minder waar! Kijk maar eens naar de plots:
+
+```{r}
+ggplot(datasaurus_dozen, aes(x=x, y=y, colour=dataset)) +
+    geom_point() +
+    theme_void() +
+    theme(legend.position = "none") +
+    facet_wrap(~dataset, ncol=3)
+```
+
+## Samenvatting
+
+| Meetniveau   | Centrummaat | Spreidingsmaat                |
+| :---         | :---        | :---                          |
+| Kwalitatief  | Modus       | -                             |
+| Quantitatief | Gemiddelde  | Variantie, standaardafwijking |
+|              | Mediaan     | Interkwartielafstand          |
