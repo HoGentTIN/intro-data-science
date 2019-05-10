@@ -9,7 +9,7 @@
 - Analyse van 1 variabele
     - visualisatie
         - staafdiagram, frequentiediagram
-        - box plot, histogram
+        - box plot, histogram, kansdichtheid
     - analyse
         - centrummaten, spreidingsmaten
             - kwal: modus
